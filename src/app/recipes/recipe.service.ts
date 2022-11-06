@@ -1,17 +1,46 @@
-import { EventEmitter } from "@angular/core";
+import { EventEmitter, Injectable } from "@angular/core";
+import { Ingredient } from "../shared/ingredient.model";
+import { ShoppingListService } from "../shopping-list/shopping-list.service";
 import { Recipe } from "./recipe.model";
 
+@Injectable()
 export class RecipeService{
+    //This EventEmitter is subscraibable
     recipeSelected = new EventEmitter<Recipe>;
     private recipes:Recipe[]=[
-        new Recipe('A Test Recipe','This is simply a test','https://lh3.googleusercontent.com/BOuh1_D9cyTHgNv5g8j3HRwW8BzPvAq3i9WV9xgFvm1hxQ_IlhnvZVGS4aAUPRGaElFzHpV6lQ8XWRPGcluZhM0InX0EUB0oh3vU=w220-h220-c-rw-v1-e365'),
-        new Recipe('Another Test Recipe','This is simply a test','https://lh3.googleusercontent.com/BOuh1_D9cyTHgNv5g8j3HRwW8BzPvAq3i9WV9xgFvm1hxQ_IlhnvZVGS4aAUPRGaElFzHpV6lQ8XWRPGcluZhM0InX0EUB0oh3vU=w220-h220-c-rw-v1-e365') 
+        new Recipe(
+            'Chicken Salad',
+        'A healthy grilled chicken salad',
+        'https://healthyfitnessmeals.com/wp-content/uploads/2021/04/Southwest-chicken-salad-7-868x1024.jpg',
+        [
+            new Ingredient('Checken breast',1),
+            new Ingredient('Sliced tomatoe',4),
+            new Ingredient('Sliced onion',3),
+            new Ingredient('Feta cheese',1),
+        ]
+        ),
+        new Recipe(
+            'Smashed Burger',
+        'Smashed style burger with gouda cheese',
+        'https://natashaskitchen.com/wp-content/uploads/2021/06/Smashed-Burgers-5.jpg',
+        [
+            new Ingredient('Beef patty',1),
+            new Ingredient('Sliced Gouda',1),
+            new Ingredient('Slice tomatoe',2),
+            new Ingredient('Slice onion',1),
+            new Ingredient('Bun',1),
+        ]
+        ) 
       ];
+      constructor(private shoppingListService:ShoppingListService){
 
+      }
     getRecipes(){
         // We use slice() to get a new array that is a copy of the original
         // changing this array won't change the original one.
         return this.recipes.slice();
     }
-
+    addIngredientToShoppingList(ingredients:Ingredient[]){
+        this.shoppingListService.addAllIngredients(ingredients);
+    }
 }

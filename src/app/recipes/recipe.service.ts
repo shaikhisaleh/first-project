@@ -35,6 +35,9 @@ export class RecipeService{
       constructor(private shoppingListService:ShoppingListService){
 
       }
+    getRecipe(id:number){
+        return this.recipes[id];
+    }
     getRecipes(){
         // We use slice() to get a new array that is a copy of the original
         // changing this array won't change the original one.

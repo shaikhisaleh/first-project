@@ -10,8 +10,4 @@ export class HeaderComponent {
 
   collapsed = true;
 
-
-  onSelect(item:string){
-    this.selected.emit(item);
-  }
 }

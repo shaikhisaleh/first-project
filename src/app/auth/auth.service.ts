@@ -1,7 +1,8 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { throwError } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { Subject, throwError } from "rxjs";
+import { catchError, tap } from "rxjs/operators";
+import { User } from "./user.model";
 
 export interface AuthResponseData{
     idToken:string,	
@@ -14,6 +15,7 @@ export interface AuthResponseData{
 
 @Injectable({providedIn: 'root'})
 export class AuthService{
+    user = new Subject<User>();
     constructor(private http: HttpClient){}
     private apiKey = 'AIzaSyDfAV7I_vQXd78_uAz3Aq_6iLXYoKKlPJM';
     signUp(email:string, password:string){
@@ -21,18 +23,41 @@ export class AuthService{
             email: email,
             password:password,
             returnSecureToken:true
-        }).pipe(catchError(this.handleError));
+        }).pipe(catchError(this.handleError),
+        tap(resData =>{
+            this.HandleAuthentication(
+                resData.email,
+                resData.localId,
+                resData.idToken,
+                +resData.expiresIn //string coverted to number by adding plus sign
+                );
+        }));
     }
     login(email:string,password:string){
         return this.http.post<AuthResponseData>(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.apiKey}`,{
             email: email,
             password:password,
             returnSecureToken:true
-        }).pipe(catchError(this.handleError));
+        }).pipe(catchError(this.handleError),
+        tap(resData =>{
+            this.HandleAuthentication(
+                resData.email,
+                resData.localId,
+                resData.idToken,
+                +resData.expiresIn //string coverted to number by adding plus sign
+                );
+        }));
         
         
     }
-
+    private HandleAuthentication(email:string,userId:string,token:string,expiresIn:number){
+            // Create new date object with get time a milliseconds then adds seconds which is 
+            //multiplied by 1000 to convert seconds to milliseconds wrapped in a date object
+            const expirationDate = new Date(new Date().getTime()+ expiresIn * 1000);
+            const userData = new User(email,userId,token,expirationDate);
+                this.user.next(userData);
+        }
+    
     private handleError(errorRes:HttpErrorResponse){
         let errorMessage = 'An unknown error occured'
             if(!errorRes.error || !errorRes.error.error){

@@ -19,6 +19,7 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
 import { DataStorageService } from './shared/data-storage.service';
 import { RecipeService } from './recipes/recipe.service';
 import { RecipesResolverService } from './recipes/recipes-resolver.service';
+import { AuthComponent } from './auth/auth.component';
 
 
 
@@ -35,7 +36,7 @@ import { RecipesResolverService } from './recipes/recipes-resolver.service';
     DropdownDirective,
     RecipeStartComponent,
     RecipeEditComponent,
-    
+    AuthComponent
 
   ],
   imports: [

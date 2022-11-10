@@ -8,13 +8,13 @@ import { DataStorageService } from '../shared/data-storage.service';
 })
 export class HeaderComponent {
   @Output() selected = new EventEmitter<string>();
-  constructor(private dateStorageService:DataStorageService){}
+  constructor(private dataStorageService:DataStorageService){}
   collapsed = true;
 
   onSaveData(){
-    this.dateStorageService.storeRecipes();
+    this.dataStorageService.storeRecipes();
   }
   onFetchData(){
-    this.dateStorageService.fetchRecipes();
+    this.dataStorageService.fetchRecipes().subscribe();
   }
 }

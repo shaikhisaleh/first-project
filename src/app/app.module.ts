@@ -22,6 +22,9 @@ import { RecipesResolverService } from './recipes/recipes-resolver.service';
 import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { AlertComponent } from './shared/alert/alert.component';
+import { AuthService } from './auth/auth.service';
+import { PlaceHolderDirective } from './shared/placeholder/placeholder.directive';
 
 
 
@@ -40,6 +43,8 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     RecipeEditComponent,
     AuthComponent,
     LoadingSpinnerComponent,
+    AlertComponent,
+    PlaceHolderDirective
 
   ],
   imports: [
@@ -54,6 +59,7 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     DataStorageService,
     RecipeService,
     RecipesResolverService,
+    AuthService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent]

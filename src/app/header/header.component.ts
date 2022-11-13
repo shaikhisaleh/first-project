@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { User } from '../auth/user.model';
 import { DataStorageService } from '../shared/data-storage.service';
 
 @Component({
@@ -22,9 +23,14 @@ export class HeaderComponent implements OnInit, OnDestroy{
   
   
   ngOnInit(): void{
+    console.log(!this.isAuthenticated);
+    console.log(!!this.isAuthenticated);
     this.userSub = this.authService.user.subscribe(user =>{
-
+      //Equevalant of !user ? false : true;
+      this.isAuthenticated = !!user;
+      
     });
+      
   }
   onSaveData(){
     this.dataStorageService.storeRecipes();

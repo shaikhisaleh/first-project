@@ -8,7 +8,6 @@ import { AuthResponseData, AuthService } from "./auth.service";
     selector:'app-auth',
     templateUrl:'auth.component.html',
     styleUrls: ['auth.component.scss'],
-    providers:[AuthService]
 })
 export class AuthComponent{
     isLoginMode = true;
@@ -41,16 +40,15 @@ export class AuthComponent{
         }
 
         authObs.subscribe(resData => {
-            console.log(resData);
+            console.log("Success" + resData);
             this.isLoading=false;
             this.error = null;
             this.router.navigate(['/recipes']);
         },errorMessage => {
-            console.log(errorMessage);
+            console.log("Failed" + errorMessage);
             this.error = errorMessage;
             this.isLoading=false;
         });
-
         authForm.reset();
     }
 }

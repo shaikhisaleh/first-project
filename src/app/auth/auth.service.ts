@@ -20,6 +20,7 @@ export class AuthService{
     user = new Subject<User>();
     constructor(private http: HttpClient, private config:MyConfig){}
     private apiKey = this.config.getKey();
+    
     signUp(email:string, password:string){
        return this.http.post<AuthResponseData>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.apiKey}`,{
             email: email,
@@ -57,7 +58,7 @@ export class AuthService{
             //multiplied by 1000 to convert seconds to milliseconds wrapped in a date object
             const expirationDate = new Date(new Date().getTime()+ expiresIn * 1000);
             const userData = new User(email,userId,token,expirationDate);
-                this.user.next(userData);
+            this.user.next(userData);
         }
     
     private handleError(errorRes:HttpErrorResponse){

@@ -66,6 +66,7 @@ export class AuthComponent implements OnDestroy{
         }
     }
     
+    //Create components programmatically. Uses my appPlaceholder directive <ng-tmplate> to mark the view point.
     private showErrorAlert(message:string){
         const hostViewContainerRef = this.alertHost;
         hostViewContainerRef.viewContainerRef.clear();

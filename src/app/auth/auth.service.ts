@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Subject, throwError } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 import { User } from "./user.model";
+import { MyConfig } from "src/config/my-config";
 
 export interface AuthResponseData{
     idToken:string,	
@@ -16,8 +17,8 @@ export interface AuthResponseData{
 @Injectable({providedIn: 'root'})
 export class AuthService{
     user = new Subject<User>();
-    constructor(private http: HttpClient){}
-    private apiKey = 'AIzaSyDfAV7I_vQXd78_uAz3Aq_6iLXYoKKlPJM';
+    constructor(private http: HttpClient, private config:MyConfig){}
+    private apiKey = this.config.API_KET;
     signUp(email:string, password:string){
        return this.http.post<AuthResponseData>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.apiKey}`,{
             email: email,

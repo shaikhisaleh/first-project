@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
 
   collapsed = true;
   private userSub : Subscription;
+  isAuthenticated=false;
 
   constructor(
     private dataStorageService:DataStorageService, private authService:AuthService
@@ -21,7 +22,9 @@ export class HeaderComponent implements OnInit, OnDestroy{
   
   
   ngOnInit(): void{
-    this.userSub = this.authService.user.subscribe();
+    this.userSub = this.authService.user.subscribe(user =>{
+
+    });
   }
   onSaveData(){
     this.dataStorageService.storeRecipes();

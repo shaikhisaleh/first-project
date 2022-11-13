@@ -16,9 +16,10 @@ export interface AuthResponseData{
 
 @Injectable({providedIn: 'root'})
 export class AuthService{
+    
     user = new Subject<User>();
     constructor(private http: HttpClient, private config:MyConfig){}
-    private apiKey = this.config.API_KET;
+    private apiKey = this.config.getKey();
     signUp(email:string, password:string){
        return this.http.post<AuthResponseData>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.apiKey}`,{
             email: email,

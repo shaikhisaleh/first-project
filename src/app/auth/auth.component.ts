@@ -20,8 +20,7 @@ export class AuthComponent implements OnDestroy{
     private closeSub: Subscription;
     constructor(
         private authService: AuthService,
-        private router:Router,
-        private viewContainerRef:ViewContainerRef
+        private router:Router
         ){}
 
     onSwitchMode(){
@@ -45,12 +44,10 @@ export class AuthComponent implements OnDestroy{
         }
 
         authObs.subscribe(resData => {
-            console.log("Success" + resData);
             this.isLoading=false;
             this.error = null;
             this.router.navigate(['/recipes']);
         },errorMessage => {
-            console.log("Failed" + errorMessage);
             this.error = errorMessage;
             this.showErrorAlert(errorMessage);
             this.isLoading=false;

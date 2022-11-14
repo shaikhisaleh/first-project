@@ -1,6 +1,5 @@
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { AppRoutingModule } from "../app-routing.module";
 import { SharedModule } from "../shared/shared.module";
 
 import { RecipeEditComponent } from "./recipe-edit/recipe-edit.component";

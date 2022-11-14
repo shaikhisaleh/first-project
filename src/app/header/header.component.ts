@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { DataStorageService } from '../shared/data-storage.service';
@@ -17,7 +18,8 @@ export class HeaderComponent implements OnInit, OnDestroy{
 
   constructor(
     private dataStorageService:DataStorageService,
-    private authService:AuthService
+    private authService:AuthService,
+    private router:Router
     ){}
 
   
@@ -43,5 +45,14 @@ export class HeaderComponent implements OnInit, OnDestroy{
   }
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
+  }
+  onRouteShopping(){
+    this.router.navigate(['/shopping-list'])
+  }
+  onRouteRecipes(){
+    this.router.navigate(['/recipes'])
+  }
+  onRouteAuth(){
+    this.router.navigate(['/auth'])
   }
 }

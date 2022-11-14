@@ -3,8 +3,8 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, throwError } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 import { User } from "./user.model";
-import { MyConfig } from "src/config/my-config";
 import { Router } from "@angular/router";
+import { environmentEx } from "src/environments/environment-example";
 
 export interface AuthResponseData{
     idToken:string,	
@@ -19,8 +19,8 @@ export interface AuthResponseData{
 export class AuthService{
     
     user = new BehaviorSubject<User>(null);
-    constructor(private http: HttpClient, private config:MyConfig, private router:Router){}
-    private apiKey = this.config.getKey();
+    constructor(private http: HttpClient, private router:Router){}
+    private apiKey = environmentEx.API_KEY;
     private tokenExpirationTimer: any;
     signUp(email:string, password:string){
        return this.http.post<AuthResponseData>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.apiKey}`,{

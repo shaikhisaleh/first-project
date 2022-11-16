@@ -2,12 +2,12 @@
     <div class="col-xs-10">
         <app-shopping-edit></app-shopping-edit>
         <hr>
-        <ul class="group-list">
+        <ul class="group-list" >
             <a class="list-group-item" 
             style="cursor:pointer;" 
-            *ngFor="let ingredient of ingredients; let i = index"
+            *ngFor="let item of ingredientsValue.ingredients; let i = index"
             (click)="onEditItem(i)" >
-                {{ingredient.name}} : {{ingredient.amount}}
+                {{item.name}} : {{item.amount}}
             </a>
         </ul>
     </div>

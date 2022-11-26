@@ -29,11 +29,8 @@ export class ShoppingEditComponent implements OnInit,OnDestroy {
   ngOnInit(): void {
    
    this.storeSub =  this.store.select('shoppingList').subscribe(stateData=>{
-    console.log("outer if");
-    console.log(stateData.editedIndex);
-    
+
       if(stateData.editedIndex > -1){
-        console.log("GREATER");
         
         this.editMode=true;
         this.editedItem=stateData.editedIngredient;
@@ -42,12 +39,10 @@ export class ShoppingEditComponent implements OnInit,OnDestroy {
           name: this.editedItem.name,
           amount: this.editedItem.amount
         });
-        console.log(this.editedItem.name,this.editedItem.amount);
         
       }
       else{
         this.editMode=false;
-        console.log("ELSE BODY");
         
       }
     });

@@ -37,15 +37,14 @@ export function shoppingListReducer(state: State = initialState, action:Shopping
                
                 case ShoppingListActions.UPDATE_INGREDIENT:
                     const ingredient:Ingredient = state.ingredients[action.payload.index];
-                    console.log('payload index' , action.payload.index);
+
                 
                     //update the ingredient in a copy of the state
                     const updatedIngredient:Ingredient = new Ingredient(action.payload.ingredient.name,action.payload.ingredient.amount)
-                    console.log('Updated ingredient' , updatedIngredient);
+
                     //modify a copy array of the state with the updated ingredient
                     const updatedIngredients:Ingredient[] = state.ingredients.slice();
                     updatedIngredients[action.payload.index] =  updatedIngredient;
-                    console.log('Updated ingredients' , updatedIngredients);
 
                     return {
                         ...state,
@@ -60,7 +59,6 @@ export function shoppingListReducer(state: State = initialState, action:Shopping
                             })
                         }
                     case ShoppingListActions.START_EDIT:
-                        console.log('payload', action.payload);
                                                
                         return {
                             ...state,

@@ -26,13 +26,11 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store.select('shoppingList').pipe(tap( e=>{
           // on next 11, etc.
-          console.log('on next', e);
           this.ingredients= e.ingredients.slice();
       } 
     )).subscribe();
        
 
-    console.log("Te log",this.ingredients);
     
     // this.igChangeSub=this.store.select('shoppingList').subscribe(ingredients=>{
     //   console.log(ingredients);

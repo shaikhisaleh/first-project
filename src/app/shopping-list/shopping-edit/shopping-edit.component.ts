@@ -47,6 +47,8 @@ export class ShoppingEditComponent implements OnInit,OnDestroy {
       }
       else{
         this.editMode=false;
+        console.log("ELSE BODY");
+        
       }
     });
     
@@ -59,7 +61,8 @@ export class ShoppingEditComponent implements OnInit,OnDestroy {
     if(this.editMode){
       // this.shoppingListService.updateIngredient(this.editedItemIndex,newIngredient);
       this.store.dispatch(new ShoppingListActions.UpdateIngredients({index:this.editedItemIndex,ingredient:newIngredient}));
-
+      console.log("UPDATEEEE");
+      
     }
     else{
       // this.shoppingListService.addIngredient(newIngredient);
@@ -76,8 +79,8 @@ export class ShoppingEditComponent implements OnInit,OnDestroy {
     this.store.dispatch(new ShoppingListActions.StopEdit());
   }
   onDelete(){
-    this.shoppingListService.deleteIngredient(this.editedItemIndex);
     this.onReset();
+    this.store.dispatch(new ShoppingListActions.DeleteIngredients(this.editedItemIndex));
     this.editMode = false;
   }
   ngOnDestroy(): void {

@@ -36,31 +36,26 @@ export function shoppingListReducer(state: State = initialState, action:Shopping
                 }
                
                 case ShoppingListActions.UPDATE_INGREDIENT:
-                    const ingredient = state.ingredients[action.payload.index];
+                    const ingredient:Ingredient = state.ingredients[action.payload.index];
                     console.log('payload index' , action.payload.index);
                 
                     //update the ingredient in a copy of the state
-                    const updatedIngredient:Ingredient = {
-                        //copy old data
-                        ...ingredient,
-                        //override with new values, this is best practice and useful incase there is an id we need to keep
-                        ...action.payload.ingredient
-                    }
+                    const updatedIngredient:Ingredient = new Ingredient(action.payload.ingredient.name,action.payload.ingredient.amount)
                     console.log('Updated ingredient' , updatedIngredient);
                     //modify a copy array of the state with the updated ingredient
-                    const updatedIngredients:Ingredient[] = {...state.ingredients};
-                    updatedIngredients[action.payload.index] = updatedIngredient; 
+                    const updatedIngredients:Ingredient[] = state.ingredients.slice();
+                    updatedIngredients[action.payload.index] =  updatedIngredient;
                     console.log('Updated ingredients' , updatedIngredients);
+
                     return {
                         ...state,
                         ingredients: updatedIngredients
                     }
 
                     case ShoppingListActions.DELETE_INGREDIENT:
-
                         return {
                             ...state,
-                            ingredients:state.ingredients.filter((ig,igIndex)=>{
+                            ingredients: state.ingredients.filter((ig,igIndex)=>{
                                 return igIndex != action.payload;
                             })
                         }
@@ -77,8 +72,8 @@ export function shoppingListReducer(state: State = initialState, action:Shopping
                     case ShoppingListActions.STOP_EDIT:
                         return {
                             ...state,
-                            editedIngredientIndex: null,
-                            editedIngredient: -1
+                            editedIndex: -1,
+                            editedIngredient: null
                         }
         default:
             return state

@@ -1,12 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import {  State, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from './shopping-list.service';
 import * as fromShoppingList from './store/shopping-list.reducer'
 import * as ShoppingListActions from './store/shopping-list.actions'
-import { take } from 'rxjs/operators';
+import { map } from 'rxjs-compat/operator/map';
+import { mapTo, pluck, switchMap, take, takeUntil, takeWhile, tap } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-shopping-list',
@@ -22,10 +24,13 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     ) { }
     
   ngOnInit(): void {
-    this.store.select('shoppingList').subscribe(e=>{
-      this.ingredients =  (<Ingredient[]>e.ingredients);
-      
-    });
+    this.store.select('shoppingList').pipe(tap( e=>{
+          // on next 11, etc.
+          console.log('on next', e);
+          this.ingredients= e.ingredients.slice();
+      } 
+    )).subscribe();
+       
 
     console.log("Te log",this.ingredients);
     

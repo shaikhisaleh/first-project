@@ -5,12 +5,10 @@ import { AuthService } from "./auth/auth.service";
 import { RecipeService } from "./recipes/recipe.service";
 import { RecipesResolverService } from "./recipes/recipes-resolver.service";
 import { DataStorageService } from "./shared/data-storage.service";
-import { ShoppingListService } from "./shopping-list/shopping-list.service";
 
 
 @NgModule({
     providers: [
-        ShoppingListService,
         DataStorageService,
         RecipeService,
         RecipesResolverService,
